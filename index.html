@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>three.js 平地与房子</title>
+<style>
+:root { --background:#f5f5f2; --card:#eee4ce; --green:#74a65b; --orange:#b65335; --blue:#4c9bb4; --muted-foreground:#72533e; --destructive:#b91c1c; }
+body { margin:0; background:var(--background); font-family:system-ui,sans-serif; }
+main { max-width:900px; margin:24px auto; padding:0 16px; }
+h1 { font-size:22px; font-weight:500; }
+p { color:#555; }
+</style>
+</head>
+<body><main>
+<h1>三维平地与房子</h1>
+<p>拖动旋转视角，滚轮或双指缩放。</p>
+<div id="three-house-demo">
+  <div class="three-house-view" role="img" aria-label="三维平地与房子，可拖动旋转视角、滚轮缩放"></div>
+  <p class="three-house-error" role="alert" hidden></p>
+</div>
+<style>
+  #three-house-demo .three-house-view { width: 100%; height: 380px; touch-action: none; }
+  #three-house-demo canvas { display: block; width: 100%; height: 100%; }
+  #three-house-demo .three-house-error { color: var(--destructive); }
+</style>
+<script type="module">
+// 固定版本，核心库和控制器使用同一个版本。
+const root = document.getElementById('three-house-demo');
+const container = root.querySelector('.three-house-view');
+try {
+  const THREE = await import('https://esm.sh/three@0.180.0');
+  const { OrbitControls } = await import('https://esm.sh/three@0.180.0/examples/jsm/controls/OrbitControls.js');
+
+  // 1. 场景、相机、渲染器。
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
+  camera.position.set(13, 16, 14);
+  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  container.appendChild(renderer.domElement);
+
+  // 2. 灯光。方向光负责产生阴影。
+  scene.add(new THREE.HemisphereLight(0xffffff, 0x707070, 2));
+  const sun = new THREE.DirectionalLight(0xffffff, 3);
+  sun.position.set(5, 9, 4);
+  sun.castShadow = true;
+  sun.shadow.mapSize.set(1024, 1024);
+  Object.assign(sun.shadow.camera, { left: -8, right: 8, top: 8, bottom: -8, near: 0.5, far: 30 });
+  sun.shadow.normalBias = 0.03;
+  scene.add(sun);
+
+  // 3. 地面：PlaneGeometry 默认在 XY 平面，旋转后位于 XZ 平面。
+  const groundMaterial = new THREE.MeshStandardMaterial({ roughness: 1 });
+  const roadMaterial = new THREE.MeshStandardMaterial({ roughness: 1 });
+  const markingMaterial = new THREE.MeshStandardMaterial({ roughness: 1 });
+  const ground = new THREE.Mesh(new THREE.PlaneGeometry(22, 22), groundMaterial);
+  ground.rotation.x = -Math.PI / 2;
+  ground.receiveShadow = true;
+  scene.add(ground);
+
+  // 4. 将房子的所有部件放在同一个 Group 中，便于整体移动。
+  const house = new THREE.Group();
+  scene.add(house);
+  const wallMaterial = new THREE.MeshStandardMaterial({ roughness: 0.85 });
+  const roofMaterial = new THREE.MeshStandardMaterial({ roughness: 0.9 });
+  const doorMaterial = new THREE.MeshStandardMaterial({ roughness: 0.9 });
+  const windowMaterial = new THREE.MeshStandardMaterial({ roughness: 0.25, metalness: 0.15 });
+  function box(width, height, depth, material, x, y, z) {
+    const mesh = new THREE.Mesh(new THREE.BoxGeometry(width, height, depth), material);
+    mesh.position.set(x, y, z);
+    mesh.castShadow = true;
+    mesh.receiveShadow = true;
+    house.add(mesh);
+    return mesh;
+  }
+  // 墙高 2.5，中心放在 y=1.25，底面正好接触 y=0 的地面。
+  box(4, 2.5, 3, wallMaterial, 0, 1.25, 0);
+
+  // 5. 三角形沿 Z 轴挤出，得到双坡屋顶。
+  const triangle = new THREE.Shape();
+  triangle.moveTo(-2.3, 0);
+  triangle.lineTo(2.3, 0);
+  triangle.lineTo(0, 1.6);
+  triangle.closePath();
+  const roof = new THREE.Mesh(
+    new THREE.ExtrudeGeometry(triangle, { depth: 3.4, bevelEnabled: false }),
+    roofMaterial
+  );
+  roof.position.set(0, 2.5, -1.7);
+  roof.castShadow = true;
+  roof.receiveShadow = true;
+  house.add(roof);
+
+  // 6. 门窗贴在朝 +Z 的正面，略微凸出墙面，避免表面闪烁。
+  box(0.85, 1.7, 0.1, doorMaterial, 0, 0.85, 1.55);
+  box(0.8, 0.8, 0.1, windowMaterial, -1.25, 1.55, 1.55);
+  box(0.8, 0.8, 0.1, windowMaterial, 1.25, 1.55, 1.55);
+
+  // 7. 摆放四栋房子，让门朝向十字路口。
+  const houses = [
+    { x: -5.2, z: -5.2, angle: 0 },
+    { x:  5.2, z: -5.2, angle: -Math.PI / 2 },
+    { x: -5.2, z:  5.2, angle: Math.PI / 2 },
+    { x:  5.2, z:  5.2, angle: Math.PI }
+  ];
+  houses.forEach(({ x, z, angle }, index) => {
+    const building = index === 0 ? house : house.clone(true);
+    building.position.set(x, 0, z);
+    building.rotation.y = angle;
+    if (index !== 0) scene.add(building);
+  });
+
+  // 8. 两条平面铺出十字道路，短白线标出道路中线。
+  function road(width, depth, x, z) {
+    const mesh = new THREE.Mesh(new THREE.PlaneGeometry(width, depth), roadMaterial);
+    mesh.rotation.x = -Math.PI / 2;
+    mesh.position.set(x, 0.02, z);
+    mesh.receiveShadow = true;
+    scene.add(mesh);
+  }
+  road(22, 2.8, 0, 0);
+  road(2.8, 22, 0, 0);
+  for (let n = -9; n <= 9; n += 2) {
+    if (Math.abs(n) < 2) continue;
+    const across = new THREE.Mesh(new THREE.BoxGeometry(0.9, 0.025, 0.12), markingMaterial);
+    across.position.set(n, 0.04, 0);
+    scene.add(across);
+    const along = new THREE.Mesh(new THREE.BoxGeometry(0.12, 0.025, 0.9), markingMaterial);
+    along.position.set(0, 0.04, n);
+    scene.add(along);
+  }
+
+  // 颜色跟随当前主题；独立页面在 CSS 中定义这些变量。
+  function applyTheme() {
+    const css = getComputedStyle(root);
+    const color = (name) => new THREE.Color(css.getPropertyValue(name).trim());
+    groundMaterial.color.copy(color('--green')).lerp(color('--background'), 0.35);
+    roadMaterial.color.copy(color('--muted-foreground')).lerp(color('--foreground'), 0.4);
+    markingMaterial.color.copy(color('--card'));
+    wallMaterial.color.copy(color('--card'));
+    roofMaterial.color.copy(color('--orange'));
+    doorMaterial.color.copy(color('--muted-foreground'));
+    windowMaterial.color.copy(color('--blue'));
+    render();
+  }
+
+  // 7. 鼠标拖动旋转、滚轮缩放。只在视角或尺寸变化时重新绘制。
+  const controls = new OrbitControls(camera, renderer.domElement);
+  controls.target.set(0, 0.8, 0);
+  controls.minDistance = 5;
+  controls.maxDistance = 35;
+  controls.maxPolarAngle = Math.PI / 2 - 0.05;
+  controls.enablePan = false;
+  function render() { renderer.render(scene, camera); }
+  controls.addEventListener('change', render);
+  controls.update();
+  function restore(state) {
+    const position = state?.privateContent?.camera;
+    if (Array.isArray(position) && position.length === 3 && position.every(Number.isFinite)) {
+      camera.position.fromArray(position);
+      controls.update();
+    }
+  }
+  restore(window.openai?.widgetState);
+  window.addEventListener('openai:set_globals', (event) => restore(event.detail?.globals?.widgetState));
+  controls.addEventListener('end', () => {
+    window.openai?.setWidgetState({ privateContent: { camera: camera.position.toArray() } }).catch(() => {});
+  });
+  new ResizeObserver(() => {
+    const width = container.clientWidth;
+    const height = container.clientHeight;
+    if (!width || !height) return;
+    camera.aspect = width / height;
+    camera.updateProjectionMatrix();
+    renderer.setSize(width, height);
+    render();
+  }).observe(container);
+  new MutationObserver(applyTheme).observe(document.documentElement, { attributes: true, attributeFilter: ['class', 'style', 'data-theme'] });
+  applyTheme();
+} catch (error) {
+  const message = root.querySelector('.three-house-error');
+  message.hidden = false;
+  message.textContent = '无法加载三维预览，请检查网络连接和浏览器 WebGL 支持。';
+  console.error(error);
+}
+</script>
+
+</main></body></html>
