@@ -1,0 +1,103 @@
+{
+  "deploymentId": "6e71a606-8287-4186-9a78-b7826fbb4de0",
+  "url": "https://dev.youichi.me",
+  "initial": {
+    "character": {
+      "cachedVariants": 1,
+      "label": "精致潮流",
+      "meshes": 38,
+      "moving": false,
+      "proceduralTextures": 4,
+      "skinnedMeshes": 2,
+      "stride": 0,
+      "style": "refined-v12",
+      "triangles": 35368,
+      "variant": "urban"
+    },
+    "hashes": {
+      "index.html": {
+        "sha256": "fdf8cac65eb94fe23379aa7386ee2f005c594957e726f9953d71bcdd3a31d5f4",
+        "status": 200
+      },
+      "src/character-materials.js": {
+        "sha256": "3a0e2f6a24b70a58fb559dd6497d32a5d4770bc38f75af343f4ae8b39ebfa13d",
+        "status": 200
+      },
+      "src/character-picker.js": {
+        "sha256": "c45dc58f7f5423e0c4d4a79da988b8172d01c981f5f8a44a3243b1dddc3442ff",
+        "status": 200
+      },
+      "src/character-refined.js": {
+        "sha256": "c7af6212f887a58196850c46fb77a39143c1defc2269c54320adb91fca00022e",
+        "status": 200
+      },
+      "src/character-styles.js": {
+        "sha256": "262b371cc109ccc131cff929d735d0a4112f9dc4eb6e106c9a52d05cee0efae9",
+        "status": 200
+      },
+      "src/character.js": {
+        "sha256": "36647838988d7e2500c7a67903ac0cea0565ba1a46856714f8c314bfbcc22c07",
+        "status": 200
+      },
+      "src/main.js": {
+        "sha256": "fe0bd26a5a1c8ae904186dbcb15803b8024e81dc41141cd900afb0327ae818a2",
+        "status": 200
+      }
+    },
+    "ready": true,
+    "version": "character-refined-v12"
+  },
+  "choices": [
+    {
+      "character": {
+        "cachedVariants": 2,
+        "label": "圆润治愈",
+        "meshes": 39,
+        "moving": false,
+        "proceduralTextures": 4,
+        "skinnedMeshes": 2,
+        "stride": 0,
+        "style": "refined-v12",
+        "triangles": 34104,
+        "variant": "cozy"
+      },
+      "closed": true,
+      "errors": [],
+      "saved": "cozy"
+    },
+    {
+      "character": {
+        "cachedVariants": 3,
+        "label": "清爽冒险",
+        "meshes": 44,
+        "moving": false,
+        "proceduralTextures": 4,
+        "skinnedMeshes": 2,
+        "stride": 0,
+        "style": "refined-v12",
+        "triangles": 40320,
+        "variant": "adventure"
+      },
+      "closed": true,
+      "errors": [],
+      "saved": "adventure"
+    },
+    {
+      "character": {
+        "cachedVariants": 3,
+        "label": "精致潮流",
+        "meshes": 38,
+        "moving": false,
+        "proceduralTextures": 4,
+        "skinnedMeshes": 2,
+        "stride": 0,
+        "style": "refined-v12",
+        "triangles": 35368,
+        "variant": "urban"
+      },
+      "closed": true,
+      "errors": [],
+      "saved": "urban"
+    }
+  ]
+}

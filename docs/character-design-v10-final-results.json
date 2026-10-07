@@ -1,0 +1,179 @@
+{
+  "deploymentId": "7b3f9163-7ad7-4f68-bc8a-b4416a640f12",
+  "online": {
+    "character": {
+      "cachedVariants": 1,
+      "label": "精致潮流",
+      "meshes": 36,
+      "moving": false,
+      "proceduralTextures": 4,
+      "skinnedMeshes": 2,
+      "stride": 0,
+      "style": "design-v10",
+      "triangles": 23924,
+      "variant": "urban"
+    },
+    "hashes": {
+      "index.html": {
+        "sha256": "fdf8cac65eb94fe23379aa7386ee2f005c594957e726f9953d71bcdd3a31d5f4",
+        "status": 200
+      },
+      "src/character-materials.js": {
+        "sha256": "c43cff9ab8f46884e8adc4e1f41aa9936242bc7e77707b4c93daa9b56c379fe3",
+        "status": 200
+      },
+      "src/character-picker.js": {
+        "sha256": "c45dc58f7f5423e0c4d4a79da988b8172d01c981f5f8a44a3243b1dddc3442ff",
+        "status": 200
+      },
+      "src/character-refined.js": {
+        "sha256": "735f6ccbf949be0de96cd931f79e7dec8685cc41a25b246077dda20e7850d460",
+        "status": 200
+      },
+      "src/character-styles.js": {
+        "sha256": "262b371cc109ccc131cff929d735d0a4112f9dc4eb6e106c9a52d05cee0efae9",
+        "status": 200
+      },
+      "src/character.js": {
+        "sha256": "36647838988d7e2500c7a67903ac0cea0565ba1a46856714f8c314bfbcc22c07",
+        "status": 200
+      },
+      "src/main.js": {
+        "sha256": "a6a2655297f6bbfa57bd5d910243205397a6693a02eb19805f0c48a638cef172",
+        "status": 200
+      }
+    },
+    "ready": true,
+    "rendersThisFrame": 1,
+    "version": "character-design-v10"
+  },
+  "models": {
+    "models": [
+      {
+        "bendDisplacement": 0.04141624133198629,
+        "blink": {
+          "closed": 0.08,
+          "open": 1
+        },
+        "bounds": {
+          "max": [
+            0.3636715983022287,
+            1.5124762965189895,
+            0.26149959175543264
+          ],
+          "min": [
+            -0.3636715983022287,
+            3.218650818093138e-9,
+            -0.30300000309944153
+          ]
+        },
+        "cargoAttachedToHip": false,
+        "diagnostics": {
+          "label": "圆润治愈",
+          "meshes": 37,
+          "moving": false,
+          "proceduralTextures": 4,
+          "skinnedMeshes": 2,
+          "stride": 1.2858609099474172e-7,
+          "style": "design-v10",
+          "triangles": 23336,
+          "variant": "cozy"
+        },
+        "hood": false,
+        "invalidWeights": 0,
+        "nonfinite": 0,
+        "normalErrors": 0,
+        "oppositeSwing": true,
+        "stopped": 1.2858609099474172e-7,
+        "textureCount": 7,
+        "translationError": 2.7755575615628914e-17,
+        "variant": "cozy"
+      },
+      {
+        "bendDisplacement": 0.04030324785473475,
+        "blink": {
+          "closed": 0.08,
+          "open": 1
+        },
+        "bounds": {
+          "max": [
+            0.35276145035316187,
+            1.5679599694692574,
+            0.24319462033255235
+          ],
+          "min": [
+            -0.35276145035316187,
+            3.637075418616575e-9,
+            -0.31331001341342923
+          ]
+        },
+        "cargoAttachedToHip": true,
+        "diagnostics": {
+          "label": "清爽冒险",
+          "meshes": 42,
+          "moving": false,
+          "proceduralTextures": 4,
+          "skinnedMeshes": 2,
+          "stride": 1.2858609099474172e-7,
+          "style": "design-v10",
+          "triangles": 28688,
+          "variant": "adventure"
+        },
+        "hood": true,
+        "invalidWeights": 0,
+        "nonfinite": 0,
+        "normalErrors": 0,
+        "oppositeSwing": true,
+        "stopped": 1.2858609099474172e-7,
+        "textureCount": 7,
+        "translationError": 8.886119947416683e-16,
+        "variant": "adventure"
+      },
+      {
+        "bendDisplacement": 0.02591440462034055,
+        "blink": {
+          "closed": 0.08,
+          "open": 1
+        },
+        "bounds": {
+          "max": [
+            0.33457787043805043,
+            1.6004543597113572,
+            0.23011964074478072
+          ],
+          "min": [
+            -0.33457787043805043,
+            3.958940453241411e-9,
+            -0.2971600127220154
+          ]
+        },
+        "cargoAttachedToHip": false,
+        "diagnostics": {
+          "label": "精致潮流",
+          "meshes": 36,
+          "moving": false,
+          "proceduralTextures": 4,
+          "skinnedMeshes": 2,
+          "stride": 1.2858609099474172e-7,
+          "style": "design-v10",
+          "triangles": 23924,
+          "variant": "urban"
+        },
+        "hood": false,
+        "invalidWeights": 0,
+        "nonfinite": 0,
+        "normalErrors": 0,
+        "oppositeSwing": true,
+        "stopped": 1.2858609099474172e-7,
+        "textureCount": 7,
+        "translationError": 8.886119947416683e-16,
+        "variant": "urban"
+      }
+    ],
+    "sharedTextures": true,
+    "stableWalker": true
+  },
+  "change": "Backpack handles lowered to attach to rectangular packs; picker, roster and interaction code unchanged.",
+  "functionalEvidence": "character-design-v10-local-checks.json",
+  "onlineFunctionalEvidence": "character-design-v10-release-results.json"
+}

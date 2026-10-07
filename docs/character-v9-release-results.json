@@ -1,0 +1,145 @@
+{
+  "release": "character-refined-v9",
+  "deploymentId": "7c59daa2-186b-4bdf-8152-629f11025166",
+  "url": "https://dev.youichi.me",
+  "local": {
+    "canvas": [
+      480,
+      900
+    ],
+    "entered": {
+      "firstPerson": true,
+      "position": [
+        10,
+        0.04,
+        10
+      ],
+      "roofs": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        false
+      ],
+      "walking": false
+    },
+    "errors": [],
+    "exited": {
+      "firstPerson": false,
+      "position": [
+        10,
+        0.04,
+        12.945
+      ],
+      "roofs": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "walking": false
+    },
+    "geometry": {
+      "blink": {
+        "closed": 0.08,
+        "open": 1
+      },
+      "bounds": {
+        "max": [
+          0.3636715983022287,
+          1.497019202803322,
+          0.26149959175543264
+        ],
+        "min": [
+          -0.3636715983022287,
+          3.218650818093138e-9,
+          -0.30399999022483826
+        ]
+      },
+      "character": {
+        "meshes": 36,
+        "moving": false,
+        "proceduralTextures": 4,
+        "skinnedMeshes": 2,
+        "stride": 1.2858609099474185e-7,
+        "style": "refined-v9",
+        "triangles": 23136
+      },
+      "gait": {
+        "arm": -0.31999966398194724,
+        "hip": 0.4299995484757416,
+        "kneeFlex": 0.2699998592105024,
+        "opposite": true,
+        "stopped": 5.214423119385637e-7
+      },
+      "nonfinite": 0,
+      "normalErrors": 0,
+      "sharedTextures": true,
+      "skinning": {
+        "bendDisplacement": 0.04141624133198629,
+        "invalidWeights": 0,
+        "meshes": 2,
+        "translationError": 2.7755575615628914e-17
+      },
+      "textureCount": 7
+    }
+  },
+  "online": {
+    "character": {
+      "meshes": 36,
+      "moving": false,
+      "proceduralTextures": 4,
+      "skinnedMeshes": 2,
+      "stride": 0,
+      "style": "refined-v9",
+      "triangles": 23136
+    },
+    "errors": [],
+    "hashes": {
+      "character-materials.js": {
+        "sha256": "12c58a939aa3e9df5125d5ae8f7ce9cb9accd5f63d4f3d46645e73b689b3c4ed",
+        "status": 200
+      },
+      "character-refined.js": {
+        "sha256": "6d787911c2fbb63fa3819959d9be2ffbffda3e52fa8b92a6b7a9e9eb5acfde68",
+        "status": 200
+      },
+      "character.js": {
+        "sha256": "665f82a5eef9be7926c32fb517d10be56967b8308facb7a14dac20ebf57e0a28",
+        "status": 200
+      },
+      "main.js": {
+        "sha256": "bd9e1c6db0652fb013f7798c32ad566fece0e91261ebfa4132651796576722c5",
+        "status": 200
+      }
+    },
+    "ready": true,
+    "rendersThisFrame": 1,
+    "version": "character-refined-v9"
+  },
+  "mobile": {
+    "viewport": [
+      390,
+      844
+    ],
+    "ready": true,
+    "compact": true,
+    "style": "refined-v9",
+    "skinnedMeshes": 2,
+    "dayNightToggle": true
+  },
+  "validation": {
+    "build": true,
+    "testsPassed": 5,
+    "clock": "Local interaction QA uses controlled RAF and delta, not physical-device FPS."
+  }
+}

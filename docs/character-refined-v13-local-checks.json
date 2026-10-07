@@ -1,0 +1,389 @@
+{
+  "models": {
+    "models": [
+      {
+        "bend": 0.041545445796481215,
+        "blink": {
+          "closed": 0.08,
+          "open": 1
+        },
+        "bounds": {
+          "max": [
+            0.3526715983022287,
+            1.5976115451633417,
+            0.23250594564757576
+          ],
+          "min": [
+            -0.3526715983022287,
+            3.733635012270753e-9,
+            -0.30300000309944153
+          ]
+        },
+        "diagnostics": {
+          "label": "圆润治愈",
+          "meshes": 37,
+          "moving": false,
+          "proceduralTextures": 4,
+          "skinnedMeshes": 2,
+          "stride": 1.2858609099474172e-7,
+          "style": "refined-v13",
+          "triangles": 36968,
+          "variant": "cozy"
+        },
+        "invalidWeights": 0,
+        "nonfinite": 0,
+        "normalErrors": 0,
+        "oppositeSwing": true,
+        "textureCount": 7,
+        "translation": 2.7755575615628914e-17,
+        "variant": "cozy"
+      },
+      {
+        "bend": 0.04041299131423776,
+        "blink": {
+          "closed": 0.08,
+          "open": 1
+        },
+        "bounds": {
+          "max": [
+            0.3420914503531618,
+            1.6141151479541742,
+            0.22228590408064935
+          ],
+          "min": [
+            -0.3420914503531618,
+            4.023313460166378e-9,
+            -0.31331001341342923
+          ]
+        },
+        "diagnostics": {
+          "label": "清爽冒险",
+          "meshes": 44,
+          "moving": false,
+          "proceduralTextures": 4,
+          "skinnedMeshes": 2,
+          "stride": 1.2858609099474172e-7,
+          "style": "refined-v13",
+          "triangles": 43184,
+          "variant": "adventure"
+        },
+        "invalidWeights": 0,
+        "nonfinite": 0,
+        "normalErrors": 0,
+        "oppositeSwing": true,
+        "textureCount": 7,
+        "translation": 1.2588308695936154e-15,
+        "variant": "adventure"
+      },
+      {
+        "bend": 0.025991444611588713,
+        "blink": {
+          "closed": 0.08,
+          "open": 1
+        },
+        "bounds": {
+          "max": [
+            0.3244578704380504,
+            1.6386875913178405,
+            0.21206586251372295
+          ],
+          "min": [
+            -0.3244578704380504,
+            4.3129920745954564e-9,
+            -0.2971600127220154
+          ]
+        },
+        "diagnostics": {
+          "label": "精致潮流",
+          "meshes": 38,
+          "moving": false,
+          "proceduralTextures": 4,
+          "skinnedMeshes": 2,
+          "stride": 1.2858609099474172e-7,
+          "style": "refined-v13",
+          "triangles": 38184,
+          "variant": "urban"
+        },
+        "invalidWeights": 0,
+        "nonfinite": 0,
+        "normalErrors": 0,
+        "oppositeSwing": true,
+        "textureCount": 7,
+        "translation": 2.7755575615628914e-17,
+        "variant": "urban"
+      }
+    ],
+    "proportions": [
+      {
+        "headScale": 0.91,
+        "legScale": 1.16,
+        "seams": [
+          {
+            "bend": 0.05387490802887875,
+            "side": "left",
+            "vertices": 198
+          },
+          {
+            "bend": 0.05387490802887875,
+            "side": "right",
+            "vertices": 198
+          }
+        ],
+        "torsoScale": 1.08,
+        "variant": "cozy"
+      },
+      {
+        "headScale": 0.87,
+        "legScale": 1.25,
+        "seams": [
+          {
+            "bend": 0.0524755346087437,
+            "side": "left",
+            "vertices": 198
+          },
+          {
+            "bend": 0.0524755346087437,
+            "side": "right",
+            "vertices": 198
+          }
+        ],
+        "torsoScale": 1.1,
+        "variant": "adventure"
+      },
+      {
+        "headScale": 0.83,
+        "legScale": 1.34,
+        "seams": [
+          {
+            "bend": 0.03378494998811758,
+            "side": "left",
+            "vertices": 198
+          },
+          {
+            "bend": 0.03378494998811758,
+            "side": "right",
+            "vertices": 198
+          }
+        ],
+        "torsoScale": 1.14,
+        "variant": "urban"
+      }
+    ],
+    "sharedTextures": true,
+    "stableWalker": true
+  },
+  "world": {
+    "after": {
+      "firstPerson": false,
+      "position": [
+        2.3000357133746867,
+        0.04,
+        5.500035713374685
+      ],
+      "roofs": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "walking": true
+    },
+    "before": {
+      "firstPerson": false,
+      "position": [
+        2.3000357133746867,
+        0.04,
+        5.500035713374685
+      ],
+      "roofs": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "walking": true
+    },
+    "clock": "Controlled RAF and clock for interaction checks; not real-device FPS.",
+    "entered": {
+      "firstPerson": true,
+      "position": [
+        10,
+        0.04,
+        10
+      ],
+      "roofs": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        false
+      ],
+      "walking": false
+    },
+    "errors": [],
+    "exited": {
+      "firstPerson": false,
+      "position": [
+        10,
+        0.04,
+        12.945
+      ],
+      "roofs": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "walking": false
+    },
+    "night": "切换到白天",
+    "reached": {
+      "firstPerson": false,
+      "position": [
+        15.036601307189432,
+        0.04,
+        16.985620915032655
+      ],
+      "roofs": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "walking": false
+    },
+    "rendersThisFrame": 1
+  },
+  "mobile": [
+    {
+      "character": {
+        "cachedVariants": 2,
+        "label": "清爽冒险",
+        "meshes": 44,
+        "moving": false,
+        "proceduralTextures": 4,
+        "skinnedMeshes": 2,
+        "stride": 0,
+        "style": "refined-v13",
+        "triangles": 43184,
+        "variant": "adventure"
+      },
+      "closed": true,
+      "compact": true,
+      "ready": true,
+      "saved": "adventure"
+    },
+    {
+      "character": {
+        "cachedVariants": 2,
+        "label": "精致潮流",
+        "meshes": 38,
+        "moving": false,
+        "proceduralTextures": 4,
+        "skinnedMeshes": 2,
+        "stride": 0,
+        "style": "refined-v13",
+        "triangles": 38184,
+        "variant": "urban"
+      },
+      "closed": true,
+      "compact": true,
+      "ready": true,
+      "saved": "urban"
+    }
+  ],
+  "comparison": [
+    {
+      "label": "圆润治愈",
+      "meshes": 39,
+      "moving": false,
+      "proceduralTextures": 4,
+      "skinnedMeshes": 2,
+      "stride": 0,
+      "style": "refined-v12",
+      "triangles": 34104,
+      "variant": "cozy"
+    },
+    {
+      "label": "清爽冒险",
+      "meshes": 44,
+      "moving": false,
+      "proceduralTextures": 4,
+      "skinnedMeshes": 2,
+      "stride": 0,
+      "style": "refined-v12",
+      "triangles": 40320,
+      "variant": "adventure"
+    },
+    {
+      "label": "精致潮流",
+      "meshes": 38,
+      "moving": false,
+      "proceduralTextures": 4,
+      "skinnedMeshes": 2,
+      "stride": 0,
+      "style": "refined-v12",
+      "triangles": 35368,
+      "variant": "urban"
+    },
+    {
+      "label": "圆润治愈",
+      "meshes": 37,
+      "moving": false,
+      "proceduralTextures": 4,
+      "skinnedMeshes": 2,
+      "stride": 0,
+      "style": "refined-v13",
+      "triangles": 36968,
+      "variant": "cozy"
+    },
+    {
+      "label": "清爽冒险",
+      "meshes": 44,
+      "moving": false,
+      "proceduralTextures": 4,
+      "skinnedMeshes": 2,
+      "stride": 0,
+      "style": "refined-v13",
+      "triangles": 43184,
+      "variant": "adventure"
+    },
+    {
+      "label": "精致潮流",
+      "meshes": 38,
+      "moving": false,
+      "proceduralTextures": 4,
+      "skinnedMeshes": 2,
+      "stride": 0,
+      "style": "refined-v13",
+      "triangles": 38184,
+      "variant": "urban"
+    }
+  ],
+  "testsPassed": 5,
+  "buildPassed": true
+}

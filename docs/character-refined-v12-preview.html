@@ -1,0 +1,34 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>小镇居民 · 人物细节精修</title>
+<style>body{margin:0;background:#eee9df;color:#345247;font:14px system-ui;display:grid;place-items:center;min-height:100vh}main{width:min(1200px,96vw);margin:24px auto}canvas{display:block;width:100%;border-radius:20px;box-shadow:0 12px 44px #334b3419}button{display:block;margin:18px auto;padding:12px 24px;border:0;border-radius:28px;background:#355e53;color:white;font:inherit;cursor:pointer}p{text-align:center;color:#6e7a6d}</style>
+<main><canvas id="output" width="1800" height="1200"></canvas><button id="download" disabled>下载人物实装效果图</button><p>直接加载游戏角色代码；每套显示正面、侧面和背面。</p></main>
+<script type="module">
+import * as THREE from 'https://esm.sh/three@0.180.0';
+import { createCharacter } from './references/character-v12.js';
+import { CHARACTER_STYLES } from './references/character-styles-v12.js';
+import { configureRenderer } from '../src/lighting.js';
+const output=document.querySelector('#output'),ctx=output.getContext('2d');
+ctx.fillStyle='#f6f1e7';ctx.fillRect(0,0,1800,1200);
+ctx.fillStyle='#304c3e';ctx.font='600 48px system-ui';ctx.fillText('小镇居民 · 人物细节精修',60,68);
+ctx.fillStyle='#7b8471';ctx.font='24px system-ui';ctx.fillText('v12 实际模型 · 虹膜眼神、流线发束和自然手型',64,110);
+const scene=new THREE.Scene();scene.background=new THREE.Color(0xf6f1e7);
+const camera=new THREE.OrthographicCamera(-1,1,1,-1,.1,40);camera.position.set(0,1.44,8);camera.lookAt(0,.82,0);
+const renderer=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});configureRenderer(renderer,false);renderer.setPixelRatio(1);renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+scene.add(new THREE.HemisphereLight(0xfff2de,0xa4b19c,2));
+const sun=new THREE.DirectionalLight(0xffedcf,3);sun.position.set(-3,7,5);sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);Object.assign(sun.shadow.camera,{left:-3,right:3,top:3,bottom:-3,near:.1,far:20});sun.shadow.normalBias=.012;sun.shadow.radius=4;scene.add(sun);
+const floor=new THREE.Mesh(new THREE.PlaneGeometry(100,100),new THREE.MeshStandardMaterial({color:0xf6f1e7,roughness:1}));floor.rotation.x=-Math.PI/2;floor.receiveShadow=true;scene.add(floor);
+window.previewCharacters=[];
+for(let i=0;i<CHARACTER_STYLES.length;i++) {
+  const style=CHARACTER_STYLES[i],character=createCharacter(style.id);character.update(2);scene.add(character.walker);
+  for(const [angle,x,y,w,h] of [[.22,i*600,160,600,600],[Math.PI/2,i*600,785,300,350],[Math.PI,i*600+300,785,300,350]]) {
+    character.walker.rotation.y=angle;renderer.setSize(w,h);camera.left=-w/h;camera.right=w/h;camera.updateProjectionMatrix();renderer.render(scene,camera);ctx.drawImage(renderer.domElement,x,y,w,h);
+  }
+  scene.remove(character.walker);window.previewCharacters.push(character.diagnostics());
+  ctx.textAlign='center';ctx.fillStyle='#34513f';ctx.font='600 31px system-ui';ctx.fillText(style.letter+' '+style.label,i*600+300,150);
+  ctx.fillStyle='#78816e';ctx.font='22px system-ui';ctx.fillText(style.description,i*600+300,775);
+  ctx.fillText('侧面',i*600+150,1155);ctx.fillText('背面',i*600+450,1155);
+}
+ctx.strokeStyle='#d8decd';ctx.lineWidth=2;for(const x of [600,1200]){ctx.beginPath();ctx.moveTo(x,140);ctx.lineTo(x,1170);ctx.stroke();}
+const button=document.querySelector('#download');button.disabled=false;
+button.onclick=()=>output.toBlob(blob=>{const link=document.createElement('a');link.href=URL.createObjectURL(blob);link.download='character-refined-v12-actual.png';link.click();setTimeout(()=>URL.revokeObjectURL(link.href),60000);},'image/png');
+window.previewReady=true;
+</script></html>

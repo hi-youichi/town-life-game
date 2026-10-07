@@ -1,0 +1,97 @@
+{
+  "deploymentId": "966a717f-25a4-4907-9e01-60a8b76c2496",
+  "url": "https://dev.youichi.me",
+  "online": {
+    "character": {
+      "cachedVariants": 1,
+      "label": "精致潮流",
+      "meshes": 34,
+      "moving": false,
+      "proceduralTextures": 4,
+      "skinnedMeshes": 2,
+      "stride": 0,
+      "style": "refined-v11",
+      "triangles": 26620,
+      "variant": "urban"
+    },
+    "hashes": {
+      "index.html": {
+        "sha256": "fdf8cac65eb94fe23379aa7386ee2f005c594957e726f9953d71bcdd3a31d5f4",
+        "status": 200
+      },
+      "src/character-materials.js": {
+        "sha256": "01001549111513ca06ac582acc760daf01d5cfd01b9505e0f999013324f8ff15",
+        "status": 200
+      },
+      "src/character-picker.js": {
+        "sha256": "c45dc58f7f5423e0c4d4a79da988b8172d01c981f5f8a44a3243b1dddc3442ff",
+        "status": 200
+      },
+      "src/character-refined.js": {
+        "sha256": "bf8a1a886dca2f8c70828052d05af39465a981bad056225031d0725855e314d5",
+        "status": 200
+      },
+      "src/character-styles.js": {
+        "sha256": "262b371cc109ccc131cff929d735d0a4112f9dc4eb6e106c9a52d05cee0efae9",
+        "status": 200
+      },
+      "src/character.js": {
+        "sha256": "36647838988d7e2500c7a67903ac0cea0565ba1a46856714f8c314bfbcc22c07",
+        "status": 200
+      },
+      "src/main.js": {
+        "sha256": "8fca13fa5dec13b1bcda7633b0e423e9b0212e955213685863519b047cf03bfe",
+        "status": 200
+      }
+    },
+    "ready": true,
+    "rendersThisFrame": 1,
+    "version": "character-refined-v11"
+  },
+  "choices": [
+    {
+      "errors": [],
+      "meshes": 35,
+      "saved": "cozy",
+      "skinnedMeshes": 2,
+      "style": "refined-v11",
+      "variant": "cozy"
+    },
+    {
+      "errors": [],
+      "meshes": 40,
+      "saved": "adventure",
+      "skinnedMeshes": 2,
+      "style": "refined-v11",
+      "variant": "adventure"
+    },
+    {
+      "errors": [],
+      "meshes": 34,
+      "saved": "urban",
+      "skinnedMeshes": 2,
+      "style": "refined-v11",
+      "variant": "urban"
+    }
+  ],
+  "mobile": {
+    "character": {
+      "cachedVariants": 2,
+      "label": "精致潮流",
+      "meshes": 34,
+      "moving": false,
+      "proceduralTextures": 4,
+      "skinnedMeshes": 2,
+      "stride": 0,
+      "style": "refined-v11",
+      "triangles": 26620,
+      "variant": "urban"
+    },
+    "closed": true,
+    "compact": true,
+    "ready": true,
+    "saved": "urban"
+  },
+  "mobileNight": true,
+  "testsPassed": 5
+}

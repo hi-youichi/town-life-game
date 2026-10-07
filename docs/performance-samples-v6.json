@@ -1,0 +1,221 @@
+{
+  "environment": "BrowserOS neo, mobile 390x844, RAF throttled; submitMs is CPU command submission, not GPU timing",
+  "cases": {
+    "errors": {
+      "page": 95,
+      "value": []
+    },
+    "night": {
+      "page": 95,
+      "value": [
+        {
+          "frameMs": 201.6999999999971,
+          "renders": 1,
+          "submitMs": 4.899999991059303,
+          "walking": true
+        },
+        {
+          "frameMs": 100.70000000000071,
+          "renders": 1,
+          "submitMs": 13.099999994039536,
+          "walking": true
+        },
+        {
+          "frameMs": 100.40000000000146,
+          "renders": 1,
+          "submitMs": 6.399999991059303,
+          "walking": true
+        },
+        {
+          "frameMs": 100.39999999999782,
+          "renders": 1,
+          "submitMs": 9.599999994039536,
+          "walking": true
+        },
+        {
+          "frameMs": 100.5,
+          "renders": 1,
+          "submitMs": 5.100000008940697,
+          "walking": true
+        },
+        {
+          "frameMs": 503.8000000000029,
+          "renders": 1,
+          "submitMs": 6.200000002980232,
+          "walking": true
+        },
+        {
+          "frameMs": 502.6999999999971,
+          "renders": 1,
+          "submitMs": 12.799999997019768,
+          "walking": true
+        },
+        {
+          "frameMs": 504.40000000000146,
+          "renders": 1,
+          "submitMs": 8.700000002980232,
+          "walking": true
+        }
+      ]
+    },
+    "rotation": {
+      "page": 95,
+      "value": [
+        {
+          "frameMs": 201.39999999999964,
+          "renders": 1,
+          "submitMs": 7.799999997019768,
+          "walking": true
+        },
+        {
+          "frameMs": 100.10000000000036,
+          "renders": 1,
+          "submitMs": 9.5,
+          "walking": true
+        },
+        {
+          "frameMs": 100.30000000000108,
+          "renders": 1,
+          "submitMs": 7.399999991059303,
+          "walking": true
+        },
+        {
+          "frameMs": 100.5,
+          "renders": 1,
+          "submitMs": 6.9000000059604645,
+          "walking": true
+        },
+        {
+          "frameMs": 200.5,
+          "renders": 1,
+          "submitMs": 9.700000002980232,
+          "walking": true
+        },
+        {
+          "frameMs": 403.5,
+          "renders": 1,
+          "submitMs": 6.5,
+          "walking": true
+        },
+        {
+          "frameMs": 503.59999999999854,
+          "renders": 1,
+          "submitMs": 6.600000008940697,
+          "walking": true
+        },
+        {
+          "frameMs": 604.6000000000004,
+          "renders": 1,
+          "submitMs": 7.100000008940697,
+          "walking": true
+        }
+      ]
+    },
+    "stationary": {
+      "page": 95,
+      "value": [
+        {
+          "frameMs": 202.0999999999999,
+          "renders": 1,
+          "submitMs": 12.899999991059303,
+          "walking": false
+        },
+        {
+          "frameMs": 101.19999999999982,
+          "renders": 1,
+          "submitMs": 7.0999999940395355,
+          "walking": false
+        },
+        {
+          "frameMs": 101.20000000000029,
+          "renders": 1,
+          "submitMs": 11.599999994039536,
+          "walking": false
+        },
+        {
+          "frameMs": 101.29999999999971,
+          "renders": 1,
+          "submitMs": 7.899999991059303,
+          "walking": false
+        },
+        {
+          "frameMs": 200.9000000000001,
+          "renders": 1,
+          "submitMs": 11.200000002980232,
+          "walking": false
+        },
+        {
+          "frameMs": 401.8000000000002,
+          "renders": 1,
+          "submitMs": 10.699999988079073,
+          "walking": false
+        },
+        {
+          "frameMs": 603.3999999999996,
+          "renders": 1,
+          "submitMs": 27.700000002980232,
+          "walking": false
+        },
+        {
+          "frameMs": 504.6000000000003,
+          "renders": 1,
+          "submitMs": 12.399999991059303,
+          "walking": false
+        }
+      ]
+    },
+    "walking": {
+      "page": 95,
+      "value": [
+        {
+          "frameMs": 201.10000000000036,
+          "renders": 1,
+          "submitMs": 11.099999994039536,
+          "walking": true
+        },
+        {
+          "frameMs": 100.5,
+          "renders": 1,
+          "submitMs": 11.199999988079073,
+          "walking": true
+        },
+        {
+          "frameMs": 100.5,
+          "renders": 1,
+          "submitMs": 12,
+          "walking": true
+        },
+        {
+          "frameMs": 100.30000000000018,
+          "renders": 1,
+          "submitMs": 10.099999994039536,
+          "walking": true
+        },
+        {
+          "frameMs": 100.5,
+          "renders": 1,
+          "submitMs": 15.200000002980232,
+          "walking": true
+        },
+        {
+          "frameMs": 402.6000000000003,
+          "renders": 1,
+          "submitMs": 39.29999999701977,
+          "walking": true
+        },
+        {
+          "frameMs": 503.3999999999997,
+          "renders": 1,
+          "submitMs": 13.799999997019768,
+          "walking": true
+        },
+        {
+          "frameMs": 604.1999999999989,
+          "renders": 1,
+          "submitMs": 13.099999994039536,
+          "walking": true
+        }
+      ]
+    }
+  }
+}

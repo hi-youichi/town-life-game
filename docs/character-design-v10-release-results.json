@@ -1,0 +1,135 @@
+{
+  "release": "character-design-v10",
+  "deploymentId": "cde1a13a-deff-4878-bd47-0e056146a133",
+  "url": "https://dev.youichi.me",
+  "onlineInitial": {
+    "character": {
+      "cachedVariants": 1,
+      "label": "圆润治愈",
+      "meshes": 37,
+      "moving": false,
+      "proceduralTextures": 4,
+      "skinnedMeshes": 2,
+      "stride": 0,
+      "style": "design-v10",
+      "triangles": 23336,
+      "variant": "cozy"
+    },
+    "hashes": {
+      "index.html": {
+        "sha256": "fdf8cac65eb94fe23379aa7386ee2f005c594957e726f9953d71bcdd3a31d5f4",
+        "status": 200
+      },
+      "src/character-materials.js": {
+        "sha256": "c43cff9ab8f46884e8adc4e1f41aa9936242bc7e77707b4c93daa9b56c379fe3",
+        "status": 200
+      },
+      "src/character-picker.js": {
+        "sha256": "c45dc58f7f5423e0c4d4a79da988b8172d01c981f5f8a44a3243b1dddc3442ff",
+        "status": 200
+      },
+      "src/character-refined.js": {
+        "sha256": "ba083c4b321214fd748afcd7216dc834fff1e783673ff2efdc83ac72e731abb2",
+        "status": 200
+      },
+      "src/character-styles.js": {
+        "sha256": "262b371cc109ccc131cff929d735d0a4112f9dc4eb6e106c9a52d05cee0efae9",
+        "status": 200
+      },
+      "src/character.js": {
+        "sha256": "36647838988d7e2500c7a67903ac0cea0565ba1a46856714f8c314bfbcc22c07",
+        "status": 200
+      },
+      "src/main.js": {
+        "sha256": "a6a2655297f6bbfa57bd5d910243205397a6693a02eb19805f0c48a638cef172",
+        "status": 200
+      }
+    },
+    "ready": true,
+    "rendersThisFrame": 1,
+    "version": "character-design-v10"
+  },
+  "onlineChecks": [
+    {
+      "cachedVariants": 2,
+      "errors": [],
+      "meshes": 42,
+      "pressed": [
+        "adventure"
+      ],
+      "saved": "adventure",
+      "skinnedMeshes": 2,
+      "variant": "adventure"
+    },
+    {
+      "cachedVariants": 3,
+      "errors": [],
+      "meshes": 36,
+      "pressed": [
+        "urban"
+      ],
+      "saved": "urban",
+      "skinnedMeshes": 2,
+      "variant": "urban"
+    },
+    {
+      "cachedVariants": 3,
+      "errors": [],
+      "meshes": 37,
+      "pressed": [
+        "cozy"
+      ],
+      "saved": "cozy",
+      "skinnedMeshes": 2,
+      "variant": "cozy"
+    },
+    {
+      "cachedVariants": 3,
+      "errors": [],
+      "meshes": 36,
+      "pressed": [
+        "urban"
+      ],
+      "saved": "urban",
+      "skinnedMeshes": 2,
+      "variant": "urban"
+    }
+  ],
+  "nightToggle": true,
+  "reloaded": {
+    "ready": true,
+    "rendersThisFrame": 1,
+    "saved": "urban",
+    "variant": "urban",
+    "version": "character-design-v10"
+  },
+  "mobile": {
+    "canvas": [
+      320,
+      844
+    ],
+    "compact": true,
+    "errors": [],
+    "panel": {
+      "bottom": 768,
+      "left": 12,
+      "right": 256,
+      "top": 516
+    },
+    "summary": {
+      "left": 12,
+      "right": 157.953125
+    },
+    "variant": "adventure",
+    "viewport": [
+      320,
+      844
+    ]
+  },
+  "validation": {
+    "build": true,
+    "policyTests": 5,
+    "localReport": "character-design-v10-local-checks.json",
+    "physicalDevicePerformanceTest": false
+  }
+}

@@ -1,0 +1,23 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>人物比例 · v12 / v13</title>
+<style>body{margin:0;background:#eee9df;color:#345247;font:14px system-ui;display:grid;place-items:center;min-height:100vh}main{width:min(1200px,96vw);margin:24px auto}canvas{display:block;width:100%;border-radius:20px}button{display:block;margin:18px auto;padding:12px 24px;border:0;border-radius:28px;background:#355e53;color:white;font:inherit}</style>
+<main><canvas id="output" width="1800" height="1400"></canvas><button id="download" disabled>下载人物比例对比图</button></main>
+<script type="module">
+import * as THREE from 'https://esm.sh/three@0.180.0';
+import {createCharacter} from '../src/character.js';
+import {createCharacter as createPrevious} from './references/character-v12.js';
+import {CHARACTER_STYLES} from '../src/character-styles.js';
+import {configureRenderer} from '../src/lighting.js';
+const ctx=document.querySelector('canvas').getContext('2d');ctx.fillStyle='#f6f1e7';ctx.fillRect(0,0,1800,1400);ctx.fillStyle='#304c3e';ctx.font='600 48px system-ui';ctx.fillText('人物比例与裤腿 · v12 / v13',60,70);
+const scene=new THREE.Scene();scene.background=new THREE.Color(0xf6f1e7);scene.add(new THREE.HemisphereLight(0xfff2de,0xa4b19c,2));
+const camera=new THREE.OrthographicCamera(-1.07,1.07,1,-1,.1,40);camera.position.set(0,1.44,8);camera.lookAt(0,.82,0);
+const renderer=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});configureRenderer(renderer,false);renderer.setPixelRatio(1);renderer.setSize(600,560);renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+const sun=new THREE.DirectionalLight(0xffedcf,3);sun.position.set(-3,7,5);sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);Object.assign(sun.shadow.camera,{left:-3,right:3,top:3,bottom:-3,near:.1,far:20});sun.shadow.normalBias=.012;sun.shadow.radius=4;scene.add(sun);
+const floor=new THREE.Mesh(new THREE.PlaneGeometry(100,100),new THREE.MeshStandardMaterial({color:0xf6f1e7,roughness:1}));floor.rotation.x=-Math.PI/2;floor.receiveShadow=true;scene.add(floor);
+window.comparisonCharacters=[];
+for(const [row,make,label] of [[0,createPrevious,'v12'],[1,createCharacter,'v13']])for(let i=0;i<CHARACTER_STYLES.length;i++){
+ const style=CHARACTER_STYLES[i],c=make(style.id);c.update(2);c.walker.rotation.y=.22;scene.add(c.walker);renderer.render(scene,camera);ctx.drawImage(renderer.domElement,i*600,150+row*610,600,560);scene.remove(c.walker);window.comparisonCharacters.push(c.diagnostics());
+ ctx.fillStyle='#35513f';ctx.textAlign='center';ctx.font='600 28px system-ui';ctx.fillText(label+' · '+style.letter+' '+style.label,i*600+300,140+row*610);
+}
+ctx.textAlign='left';ctx.fillStyle='#78816e';ctx.font='22px system-ui';ctx.fillText('相同镜头和光照 · 保留三套服装配色 · 裤腿侧缝随膝部弯曲',60,1370);
+const button=document.querySelector('button');button.disabled=false;button.onclick=()=>document.querySelector('canvas').toBlob(blob=>{const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='character-refined-v13-comparison.png';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),60000);},'image/png');window.previewReady=true;
+</script></html>

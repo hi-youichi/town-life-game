@@ -3,189 +3,72 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>three.js 平地与房子</title>
+<title>小镇街道漫步</title>
 <style>
-:root { --background:#f5f5f2; --card:#eee4ce; --green:#74a65b; --orange:#b65335; --blue:#4c9bb4; --muted-foreground:#72533e; --destructive:#b91c1c; }
-body { margin:0; background:var(--background); font-family:system-ui,sans-serif; }
-main { max-width:900px; margin:24px auto; padding:0 16px; }
-h1 { font-size:22px; font-weight:500; }
-p { color:#555; }
+:root { --background:#f5f5f2; --card:#eee4ce; --green:#b2ca82; --orange:#c66b48; --blue:#4c9bb4; --muted-foreground:#72533e; --destructive:#b91c1c; }
+html, body { width:100%; height:100%; margin:0; overflow:hidden; }
+body { background:var(--background); font-family:system-ui,sans-serif; }
+body, #three-house-demo { transition:background-color .5s, color .5s; }
+body.night { background:#111a23; color:#e1e7e8; }
 </style>
 </head>
-<body><main>
-<h1>三维平地与房子</h1>
-<p>拖动旋转视角，滚轮或双指缩放。</p>
+<body>
 <div id="three-house-demo">
-  <div class="three-house-view" role="img" aria-label="三维平地与房子，可拖动旋转视角、滚轮缩放"></div>
+  <div class="three-house-view" role="application" aria-label="三维小镇。点击街道移动小人，点击房屋进屋，可拖动旋转视角、滚轮缩放"></div>
+  <p class="three-house-status" aria-live="polite">小人正在路口等你。</p>
+  <p class="three-house-fps" aria-label="帧率监控" title="每半秒更新平均帧率和帧间隔">FPS — · — ms</p>
+  <button class="three-house-time" type="button" aria-label="切换到夜晚" title="切换昼夜">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.2 15.4A8.5 8.5 0 0 1 8.6 3.8 8.5 8.5 0 1 0 20.2 15.4Z"/></svg>
+  </button>
+  <button class="three-house-exit" type="button" aria-label="返回街道" title="返回街道" hidden>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V4h11v16M2 20h20M10 20v-6h5M17 12h5m-3-3 3 3-3 3"/></svg>
+  </button>
+  <button class="three-house-photo" type="button" aria-label="下载场景截图" title="下载场景截图">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h4l2-3h6l2 3h4v13H3Z"/><circle cx="12" cy="13" r="4"/></svg>
+  </button>
+  <details class="three-house-character">
+    <summary aria-label="选择人物"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 4-5 3 3 5 2-1v9h8v-9l2 1 3-5-5-3c-1 3-7 3-8 0Z"/></svg><span>人物 · <span class="character-current">圆润治愈</span></span></summary>
+    <div class="character-panel"><p>选择你的居民</p><div class="character-choices" role="group" aria-label="人物造型"></div></div>
+  </details>
+  <p class="three-house-toast" role="status" hidden></p>
   <p class="three-house-error" role="alert" hidden></p>
 </div>
 <style>
-  #three-house-demo .three-house-view { width: 100%; height: 380px; touch-action: none; }
+  #three-house-demo { position:relative; width:100vw; height:100vh; height:100dvh; overflow:hidden; background:var(--background); }
+  #three-house-demo .three-house-view { position:absolute; inset:0; width:100%; height:100%; touch-action:none; }
   #three-house-demo canvas { display: block; width: 100%; height: 100%; }
-  #three-house-demo .three-house-error { color: var(--destructive); }
+  #three-house-demo .three-house-view canvas { cursor: crosshair; }
+  #three-house-demo .three-house-status { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+  #three-house-demo .three-house-fps { position:absolute; z-index:2; top:calc(env(safe-area-inset-top) + 12px); left:calc(env(safe-area-inset-left) + 12px); margin:0; padding:8px 12px; border:1px solid #ffffff55; border-radius:10px; background:#17232dcc; color:#fff; font:12px/1.5 ui-monospace,monospace; font-variant-numeric:tabular-nums; pointer-events:none; white-space:nowrap; }
+  #three-house-demo .three-house-time, #three-house-demo .three-house-exit, #three-house-demo .three-house-photo { position:absolute; z-index:2; right:calc(env(safe-area-inset-right) + 12px); width:48px; height:48px; display:grid; place-items:center; padding:0; border:1px solid #ffffff55; border-radius:50%; background:#17232dcc; color:#fff; box-shadow:0 2px 12px #0004; cursor:pointer; touch-action:manipulation; }
+  #three-house-demo .three-house-time { top:calc(env(safe-area-inset-top) + 12px); }
+  #three-house-demo .three-house-exit { top:calc(env(safe-area-inset-top) + 68px); }
+  #three-house-demo .three-house-photo { bottom:calc(env(safe-area-inset-bottom) + 18px); }
+  #three-house-demo .three-house-error:not([hidden]) { position:absolute; z-index:4; inset:40% 20px auto; padding:16px; background:#17232de6; color:white; border-radius:12px; text-align:center; }
+  #three-house-demo button[hidden] { display:none; }
+  #three-house-demo button:focus-visible { outline:3px solid #ffe3a0; outline-offset:3px; }
+  #three-house-demo .three-house-character { position:absolute; z-index:3; left:calc(env(safe-area-inset-left) + 12px); bottom:calc(env(safe-area-inset-bottom) + 18px); color:#fff; font-size:13px; }
+  #three-house-demo .three-house-character summary { display:flex; align-items:center; gap:8px; min-height:46px; box-sizing:border-box; padding:0 14px; border:1px solid #ffffff55; border-radius:24px; background:#17232de8; box-shadow:0 2px 12px #0003; cursor:pointer; list-style:none; touch-action:manipulation; }
+  #three-house-demo .three-house-character summary::-webkit-details-marker { display:none; }
+  #three-house-demo .three-house-character summary:focus-visible { outline:3px solid #ffe3a0; outline-offset:3px; }
+  #three-house-demo .three-house-character summary svg { width:20px; height:20px; fill:none; stroke:currentColor; stroke-width:1.6; stroke-linejoin:round; }
+  #three-house-demo .character-panel { position:absolute; left:0; bottom:58px; width:244px; box-sizing:border-box; padding:14px; border:1px solid #ffffff44; border-radius:18px; background:#f7f2e8; color:#2e493f; box-shadow:0 10px 30px #0003; }
+  #three-house-demo .character-panel p { margin:0 0 10px; font-weight:600; font-size:14px; }
+  #three-house-demo .character-choices { display:grid; gap:6px; }
+  #three-house-demo .character-choices button { display:flex; align-items:center; gap:10px; padding:10px; border:1px solid transparent; border-radius:12px; background:transparent; color:inherit; text-align:left; cursor:pointer; font:inherit; }
+  #three-house-demo .character-choices button:hover { background:#ebe5d9; }
+  #three-house-demo .character-choices button[aria-pressed="true"] { background:#e1eadd; border-color:#8fa88c; }
+  #three-house-demo .character-swatch { display:grid; place-items:center; width:34px; height:38px; border-radius:11px; color:#243c34; font-size:15px; font-weight:700; flex:none; }
+  #three-house-demo .character-choices strong, #three-house-demo .character-choices small { display:block; }
+  #three-house-demo .character-choices small { font-size:11px; margin-top:3px; color:#647367; }
+  #three-house-demo.night .character-panel { background:#23332e; color:#edf0e5; }
+  #three-house-demo.night .character-choices button:hover { background:#32453b; }
+  #three-house-demo.night .character-choices button[aria-pressed="true"] { background:#3b5545; border-color:#9fbc9a; }
+  #three-house-demo.night .character-choices small { color:#bfd0c0; }
+  #three-house-demo button:disabled { opacity:.55; cursor:wait; }
+  #three-house-demo .three-house-toast { position:absolute; z-index:3; bottom:calc(env(safe-area-inset-bottom) + 78px); left:50%; transform:translateX(-50%); margin:0; padding:10px 16px; border-radius:14px; background:#17232de6; color:#fff; font-size:14px; max-width:80%; text-align:center; }
+  #three-house-demo button svg { width:24px; height:24px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+  #three-house-demo.night { --background:#17232d; --card:#515966; --green:#4d7656; --orange:#a85c41; --blue:#65a8ba; --muted-foreground:#46515f; --foreground:#607080; color:#e4ecee; }
 </style>
-<script type="module">
-// 固定版本，核心库和控制器使用同一个版本。
-const root = document.getElementById('three-house-demo');
-const container = root.querySelector('.three-house-view');
-try {
-  const THREE = await import('https://esm.sh/three@0.180.0');
-  const { OrbitControls } = await import('https://esm.sh/three@0.180.0/examples/jsm/controls/OrbitControls.js');
-
-  // 1. 场景、相机、渲染器。
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
-  camera.position.set(13, 16, 14);
-  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  renderer.shadowMap.enabled = true;
-  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-  container.appendChild(renderer.domElement);
-
-  // 2. 灯光。方向光负责产生阴影。
-  scene.add(new THREE.HemisphereLight(0xffffff, 0x707070, 2));
-  const sun = new THREE.DirectionalLight(0xffffff, 3);
-  sun.position.set(5, 9, 4);
-  sun.castShadow = true;
-  sun.shadow.mapSize.set(1024, 1024);
-  Object.assign(sun.shadow.camera, { left: -8, right: 8, top: 8, bottom: -8, near: 0.5, far: 30 });
-  sun.shadow.normalBias = 0.03;
-  scene.add(sun);
-
-  // 3. 地面：PlaneGeometry 默认在 XY 平面，旋转后位于 XZ 平面。
-  const groundMaterial = new THREE.MeshStandardMaterial({ roughness: 1 });
-  const roadMaterial = new THREE.MeshStandardMaterial({ roughness: 1 });
-  const markingMaterial = new THREE.MeshStandardMaterial({ roughness: 1 });
-  const ground = new THREE.Mesh(new THREE.PlaneGeometry(22, 22), groundMaterial);
-  ground.rotation.x = -Math.PI / 2;
-  ground.receiveShadow = true;
-  scene.add(ground);
-
-  // 4. 将房子的所有部件放在同一个 Group 中，便于整体移动。
-  const house = new THREE.Group();
-  scene.add(house);
-  const wallMaterial = new THREE.MeshStandardMaterial({ roughness: 0.85 });
-  const roofMaterial = new THREE.MeshStandardMaterial({ roughness: 0.9 });
-  const doorMaterial = new THREE.MeshStandardMaterial({ roughness: 0.9 });
-  const windowMaterial = new THREE.MeshStandardMaterial({ roughness: 0.25, metalness: 0.15 });
-  function box(width, height, depth, material, x, y, z) {
-    const mesh = new THREE.Mesh(new THREE.BoxGeometry(width, height, depth), material);
-    mesh.position.set(x, y, z);
-    mesh.castShadow = true;
-    mesh.receiveShadow = true;
-    house.add(mesh);
-    return mesh;
-  }
-  // 墙高 2.5，中心放在 y=1.25，底面正好接触 y=0 的地面。
-  box(4, 2.5, 3, wallMaterial, 0, 1.25, 0);
-
-  // 5. 三角形沿 Z 轴挤出，得到双坡屋顶。
-  const triangle = new THREE.Shape();
-  triangle.moveTo(-2.3, 0);
-  triangle.lineTo(2.3, 0);
-  triangle.lineTo(0, 1.6);
-  triangle.closePath();
-  const roof = new THREE.Mesh(
-    new THREE.ExtrudeGeometry(triangle, { depth: 3.4, bevelEnabled: false }),
-    roofMaterial
-  );
-  roof.position.set(0, 2.5, -1.7);
-  roof.castShadow = true;
-  roof.receiveShadow = true;
-  house.add(roof);
-
-  // 6. 门窗贴在朝 +Z 的正面，略微凸出墙面，避免表面闪烁。
-  box(0.85, 1.7, 0.1, doorMaterial, 0, 0.85, 1.55);
-  box(0.8, 0.8, 0.1, windowMaterial, -1.25, 1.55, 1.55);
-  box(0.8, 0.8, 0.1, windowMaterial, 1.25, 1.55, 1.55);
-
-  // 7. 摆放四栋房子，让门朝向十字路口。
-  const houses = [
-    { x: -5.2, z: -5.2, angle: 0 },
-    { x:  5.2, z: -5.2, angle: -Math.PI / 2 },
-    { x: -5.2, z:  5.2, angle: Math.PI / 2 },
-    { x:  5.2, z:  5.2, angle: Math.PI }
-  ];
-  houses.forEach(({ x, z, angle }, index) => {
-    const building = index === 0 ? house : house.clone(true);
-    building.position.set(x, 0, z);
-    building.rotation.y = angle;
-    if (index !== 0) scene.add(building);
-  });
-
-  // 8. 两条平面铺出十字道路，短白线标出道路中线。
-  function road(width, depth, x, z) {
-    const mesh = new THREE.Mesh(new THREE.PlaneGeometry(width, depth), roadMaterial);
-    mesh.rotation.x = -Math.PI / 2;
-    mesh.position.set(x, 0.02, z);
-    mesh.receiveShadow = true;
-    scene.add(mesh);
-  }
-  road(22, 2.8, 0, 0);
-  road(2.8, 22, 0, 0);
-  for (let n = -9; n <= 9; n += 2) {
-    if (Math.abs(n) < 2) continue;
-    const across = new THREE.Mesh(new THREE.BoxGeometry(0.9, 0.025, 0.12), markingMaterial);
-    across.position.set(n, 0.04, 0);
-    scene.add(across);
-    const along = new THREE.Mesh(new THREE.BoxGeometry(0.12, 0.025, 0.9), markingMaterial);
-    along.position.set(0, 0.04, n);
-    scene.add(along);
-  }
-
-  // 颜色跟随当前主题；独立页面在 CSS 中定义这些变量。
-  function applyTheme() {
-    const css = getComputedStyle(root);
-    const color = (name) => new THREE.Color(css.getPropertyValue(name).trim());
-    groundMaterial.color.copy(color('--green')).lerp(color('--background'), 0.35);
-    roadMaterial.color.copy(color('--muted-foreground')).lerp(color('--foreground'), 0.4);
-    markingMaterial.color.copy(color('--card'));
-    wallMaterial.color.copy(color('--card'));
-    roofMaterial.color.copy(color('--orange'));
-    doorMaterial.color.copy(color('--muted-foreground'));
-    windowMaterial.color.copy(color('--blue'));
-    render();
-  }
-
-  // 7. 鼠标拖动旋转、滚轮缩放。只在视角或尺寸变化时重新绘制。
-  const controls = new OrbitControls(camera, renderer.domElement);
-  controls.target.set(0, 0.8, 0);
-  controls.minDistance = 5;
-  controls.maxDistance = 35;
-  controls.maxPolarAngle = Math.PI / 2 - 0.05;
-  controls.enablePan = false;
-  function render() { renderer.render(scene, camera); }
-  controls.addEventListener('change', render);
-  controls.update();
-  function restore(state) {
-    const position = state?.privateContent?.camera;
-    if (Array.isArray(position) && position.length === 3 && position.every(Number.isFinite)) {
-      camera.position.fromArray(position);
-      controls.update();
-    }
-  }
-  restore(window.openai?.widgetState);
-  window.addEventListener('openai:set_globals', (event) => restore(event.detail?.globals?.widgetState));
-  controls.addEventListener('end', () => {
-    window.openai?.setWidgetState({ privateContent: { camera: camera.position.toArray() } }).catch(() => {});
-  });
-  new ResizeObserver(() => {
-    const width = container.clientWidth;
-    const height = container.clientHeight;
-    if (!width || !height) return;
-    camera.aspect = width / height;
-    camera.updateProjectionMatrix();
-    renderer.setSize(width, height);
-    render();
-  }).observe(container);
-  new MutationObserver(applyTheme).observe(document.documentElement, { attributes: true, attributeFilter: ['class', 'style', 'data-theme'] });
-  applyTheme();
-} catch (error) {
-  const message = root.querySelector('.three-house-error');
-  message.hidden = false;
-  message.textContent = '无法加载三维预览，请检查网络连接和浏览器 WebGL 支持。';
-  console.error(error);
-}
-</script>
-
-</main></body></html>
+<script type="module" src="./src/main.js"></script>
+</body></html>

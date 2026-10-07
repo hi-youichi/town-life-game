@@ -5,5 +5,17 @@
   "workers_dev": true,
   "assets": {
     "directory": "./dist"
+  },
+  "env": {
+    "dev": {
+      "name": "town-life-game-dev",
+      "workers_dev": false,
+      "routes": [
+        {
+          "pattern": "dev.youichi.me",
+          "custom_domain": true
+        }
+      ]
+    }
   }
 }
